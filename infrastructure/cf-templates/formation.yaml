@@ -86,14 +86,13 @@ Resources:
             # ###### Run Chef ######
             mkdir -p /var/log/chef
 
-            cd chef
             ls config/solo.rb
             ls nodes/web-services/us-west-2/dev.json
 
             /usr/bin/chef-solo -c config/solo.rb -j nodes/web-services/us-west-2/dev.json -l debug --force-logger
 
             if [ $? -eq 0 ]; then
-            #   # All done!
+               # All done!
               cfn-signal --region ${AWS::Region} --resource AutoScalingGroup --stack ${AWS::StackName}
             else
               # Deploy failed upload logs and die
